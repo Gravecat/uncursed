@@ -1,0 +1,6 @@
+.github/FUNDING.yml linguist-documentation
+LICENSE linguist-documentation
+ncurses/* linguist-vendored
+pdcurses/* linguist-vendored
+README linguist-documentation
+uncursed.h linguist-language=C++
