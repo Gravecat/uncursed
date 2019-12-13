@@ -2,5 +2,5 @@
 LICENSE linguist-documentation
 ncurses/* linguist-vendored
 pdcurses/* linguist-vendored
-README linguist-documentation
+README.md linguist-documentation
 uncursed.h linguist-language=C++
