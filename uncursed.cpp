@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.0 -- 13th December 2019
+   RELEASE VERSION 1.1 -- 13th December 2019
 
 MIT License
 
@@ -537,6 +537,15 @@ void set_cursor(bool enabled)
 		curs_set(0);
 		noecho();
 	}
+}
+
+// Sets the console window title. Only works on PDCurses; does nothing on NCurses.
+void set_window_title(std::string title)
+{
+	stack_trace();
+#ifdef PDCURSES
+	PDC_set_title(title.c_str());
+#endif
 }
 
 // Runs Curses cleanup code.
