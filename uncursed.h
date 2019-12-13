@@ -110,7 +110,11 @@ void			print(std::shared_ptr<unc::Window> window, int newline_count = 1);	// Thi
 void			render_grid(int x, int y, int w, int h, unc::Colour colour = unc::Colour::NONE, std::shared_ptr<unc::Window> window = nullptr);	// Renders a grid of the specified size.
 int				resize_key();	// Access to the KEY_RESIZE definition in curses.h
 void			set_cursor(bool enabled);	// Turns the cursor on or off.
+#ifdef PDCURSES
 void			set_window_title(std::string title);	// Sets the console window title. Only works on PDCurses; does nothing on NCurses.
+#else
+void			set_window_title(std::string);
+#endif
 void			shutdown();	// Runs Curses cleanup code.
 
 }	// namespace unc

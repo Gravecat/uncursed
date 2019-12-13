@@ -540,13 +540,15 @@ void set_cursor(bool enabled)
 }
 
 // Sets the console window title. Only works on PDCurses; does nothing on NCurses.
+#ifdef PDCURSES
 void set_window_title(std::string title)
 {
 	stack_trace();
-#ifdef PDCURSES
 	PDC_set_title(title.c_str());
-#endif
 }
+#else
+void set_window_title(std::string) { }
+#endif
 
 // Runs Curses cleanup code.
 void shutdown()
