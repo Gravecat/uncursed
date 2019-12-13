@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.1 -- 13th December 2019
+   RELEASE VERSION 1.11 -- 13th December 2019
 
 MIT License
 
@@ -26,8 +26,8 @@ SOFTWARE.
 
 #pragma once
 
-#define USING_GURU_MEDITATION	// Uncomment this line if you are also using my Guru Meditation library.
-#define USING_POTLUCK			// Uncomment this line if you are also using my Potluck utility library.
+//#define USING_GURU_MEDITATION	// Uncomment this line if you are also using my Guru Meditation library.
+//#define USING_POTLUCK			// Uncomment this line if you are also using my Potluck utility library.
 
 
 #if defined(_WIN32) || defined(_WIN64)
