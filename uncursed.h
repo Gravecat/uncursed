@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.12 -- 13th December 2019
+   RELEASE VERSION 1.2 -- 14th December 2019
 
 MIT License
 
@@ -26,8 +26,10 @@ SOFTWARE.
 
 #pragma once
 
-//#define USING_GURU_MEDITATION	// Uncomment this line if you are also using my Guru Meditation library.
-//#define USING_POTLUCK			// Uncomment this line if you are also using my Potluck utility library.
+#define USING_GURU_MEDITATION	// Comment out this line if you are NOT also using my Guru Meditation library.
+#define USING_POTLUCK			// Comment out this line if you are NOT also using my Potluck utility library.
+
+#define USE_UNCURSED_MENU		// Comment out this line if you do NOT want to use the Menu system included in Uncursed.
 
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -116,5 +118,9 @@ void			set_window_title(std::string title);	// Sets the console window title. On
 void			set_window_title(std::string);
 #endif
 void			shutdown();	// Runs Curses cleanup code.
+
+// Replacement functions provided by the Potluck library.
+std::vector<std::string>	string_explode(std::string str, std::string separator);		// String split/explode function.
+std::vector<std::string>	vector_split(std::string source, unsigned int line_len);	// Splits a string into a vector of strings, to a given line length.
 
 }	// namespace unc

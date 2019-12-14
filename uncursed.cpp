@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.12 -- 13th December 2019
+   RELEASE VERSION 1.2 -- 14th December 2019
 
 MIT License
 
@@ -317,30 +317,6 @@ void print(std::string input, unc::Colour colour, unsigned int flags, int x, int
 	stack_trace();
 	if (!input.size()) return;
 
-	// This is identical to the one used in the Potluck library.
-	auto string_explode = [](std::string str, std::string separator) -> std::vector<std::string> {
-#ifndef USING_POTLUCK
-		stack_trace();
-		std::vector<std::string> results;
-
-		std::string::size_type pos = str.find(separator, 0);
-		const int pit = separator.length();
-
-		while(pos != std::string::npos)
-		{
-			if (pos == 0) results.push_back("");
-			else results.push_back(str.substr(0, pos));
-	        str.erase(0, pos + pit);
-	        pos = str.find(separator, 0);
-	    }
-	    results.push_back(str);
-
-	    return results;
-#else
-	    return potluck::string_explode(str, separator);
-#endif
-	};
-
 	WINDOW *win = (window ? window->win() : stdscr);
 	const bool bold = ((flags & UNC_BOLD) == UNC_BOLD);
 	const bool newline = ((flags & UNC_NL) == UNC_NL);
@@ -372,7 +348,7 @@ void print(std::string input, unc::Colour colour, unsigned int flags, int x, int
 	}
 	const unsigned int width = unc::get_cols(window);
 	unsigned int current_pos = unc::get_cursor_x(window);
-	std::vector<std::string> words = string_explode(input, " ");
+	std::vector<std::string> words = unc::string_explode(input, " ");
 	std::string line;
 	if (words.size() && spaces_at_start) words.at(0) = std::string(spaces_at_start, ' ') + words.at(0);
 	if (!no_colour) wattron(win, COLOR_PAIR(static_cast<unsigned int>(colour)) | colour_flags);
@@ -563,4 +539,72 @@ void shutdown()
 #endif
 }
 
-}	// namespace uncursed
+#ifndef USING_POTLUCK
+// Below this point are replacement libraries from the Potluck library, used when USING_POTLUCK is not defined.
+
+// String split/explode function.
+std::vector<std::string> string_explode(std::string str, std::string separator)
+{
+	stack_trace();
+	std::vector<std::string> results;
+
+	std::string::size_type pos = str.find(separator, 0);
+	const int pit = separator.length();
+
+	while(pos != std::string::npos)
+	{
+		if (pos == 0) results.push_back("");
+		else results.push_back(str.substr(0, pos));
+        str.erase(0, pos + pit);
+        pos = str.find(separator, 0);
+    }
+    results.push_back(str);
+
+    return results;
+}
+
+// Splits a string into a vector of strings, to a given line length.
+std::vector<std::string> vector_split(std::string source, unsigned int line_len)
+{
+	stack_trace();
+	std::vector<std::string> result;
+	if (source.size() <= line_len)
+	{
+		result.push_back(source);
+		return result;
+	}
+	std::vector<std::string> words = unc::string_explode(source, " ");
+	std::string current_line;
+	while (words.size())
+	{
+		std::string word = words.at(0);
+		words.erase(words.begin());
+		if (word.size() > line_len)
+		{
+			// If the word itself is too long for the line, break it into two, then deal with them individually.
+			// We'll then deal with that in the normal way afterwards. If the second half is still too long, it'll get broken up again when we get to it.
+			// This could result in more iteration for edge cases, but overall keeps the code nice and simple.
+			std::string first_half = word.substr(0, line_len);
+			std::string second_half = word.substr(line_len + 1);
+			words.insert(words.begin(), second_half);
+			words.insert(words.begin(), first_half);
+			continue;
+		}
+		if (current_line.size() + word.size() + 1 > line_len)
+		{
+			result.push_back(current_line);
+			current_line = word;
+			continue;
+		}
+		if (current_line.size()) current_line += " " + word;
+		else current_line = word;
+	}
+	if (current_line.size()) result.push_back(current_line);
+	return result;
+}
+#else
+std::vector<std::string> string_explode(std::string str, std::string separator) { return potluck::string_explode(str, separator); }
+std::vector<std::string> vector_split(std::string source, unsigned int line_len) { return potluck::vector_split(source, line_len); }
+#endif
+
+}	// namespace unc
