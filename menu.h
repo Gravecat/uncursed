@@ -1,5 +1,5 @@
 /* menu.h -- Menu class definition, for a fairly generic scrollable menu of items.
-   RELEASE VERSION 1.2 -- 14th December 2019
+   RELEASE VERSION 1.21 -- 15th December 2019
 
 MIT License
 

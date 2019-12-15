@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.2 -- 14th December 2019
+   RELEASE VERSION 1.21 -- 15th December 2019
 
 MIT License
 
@@ -229,11 +229,15 @@ std::string get_string(std::shared_ptr<unc::Window> window)
 }
 
 // Sets up Curses.
-void init()
+void init(std::string syslog_filename)
 {
 	stack_trace();
 #ifdef USING_GURU_MEDITATION
-	guru::open_syslog();
+#if GURU_MEDITATION_VERSION >= 111
+	guru::open_syslog(syslog_filename);
+#else
+	guru::open_sysog();
+#endif
 #endif
 	initscr();
 	cbreak();

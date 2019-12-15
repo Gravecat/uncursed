@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.2 -- 14th December 2019
+   RELEASE VERSION 1.21 -- 15th December 2019
 
 MIT License
 
@@ -95,7 +95,7 @@ unsigned int	get_midcol(std::shared_ptr<unc::Window> window = nullptr);		// Gets
 unsigned int	get_midrow(std::shared_ptr<unc::Window> window = nullptr);		// Gets the central row of the specified Window.
 unsigned int	get_rows(std::shared_ptr<unc::Window> window = nullptr);		// Gets the number of rows available on the screen right now.
 std::string		get_string(std::shared_ptr<unc::Window> window = nullptr);		// C++ std::string wrapper around the PDCurses wgetnstr() function.
-void			init();				// Sets up Curses.
+void			init(std::string syslog_filename = "");	// Sets up Curses.
 void			init_colours();		// Sets up the Curses colour pairs.
 bool			is_cancel(int key);	// Checks if a key is a cancel key (escape).
 bool			is_down(int key);	// Checks if a key is the down arrow key.
