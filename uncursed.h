@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.21 -- 15th December 2019
+   RELEASE VERSION 1.22 -- 15th December 2019
 
 MIT License
 
@@ -26,11 +26,18 @@ SOFTWARE.
 
 #pragma once
 
+
+#include <memory>
+#include <string>
+#include <vector>
+
+namespace unc
+{
+
 #define USING_GURU_MEDITATION	// Comment out this line if you are NOT also using my Guru Meditation library.
 #define USING_POTLUCK			// Comment out this line if you are NOT also using my Potluck utility library.
 
 #define USE_UNCURSED_MENU		// Comment out this line if you do NOT want to use the Menu system included in Uncursed.
-
 
 #if defined(_WIN32) || defined(_WIN64)
 typedef struct _win WINDOW;
@@ -38,12 +45,6 @@ typedef struct _win WINDOW;
 typedef struct _win_st WINDOW;
 #endif
 typedef struct panel PANEL;
-
-#include <memory>
-#include <string>
-
-namespace unc
-{
 
 // If we're NOT using the Guru Meditation system, this'll just make the stack_trace() call do nothing.
 #ifndef USING_GURU_MEDITATION

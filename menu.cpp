@@ -1,5 +1,5 @@
 /* menu.cpp -- Menu class definition, for a fairly generic scrollable menu of items.
-   RELEASE VERSION 1.21 -- 15th December 2019
+   RELEASE VERSION 1.22 -- 15th December 2019
 
 MIT License
 
@@ -31,11 +31,12 @@ SOFTWARE.
 #include "guru/guru.h"
 #endif
 
-#define MENU_SIDEBOX_WIDTH	20
-
 
 namespace unc
 {
+
+#define MENU_SIDEBOX_WIDTH	20
+
 
 // Adds an item to this Menu.
 void Menu::add_item(std::string txt, Colour col, std::string sidebox)

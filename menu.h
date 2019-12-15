@@ -1,5 +1,5 @@
 /* menu.h -- Menu class definition, for a fairly generic scrollable menu of items.
-   RELEASE VERSION 1.21 -- 15th December 2019
+   RELEASE VERSION 1.22 -- 15th December 2019
 
 MIT License
 
@@ -26,14 +26,14 @@ SOFTWARE.
 
 #pragma once
 
-#include <memory>
-#include <string>
-#include <vector>
-
 #include "uncursed.h"
 
 
 #ifdef USE_UNCURSED_MENU
+#include <memory>
+#include <string>
+#include <vector>
+
 namespace unc
 {
 

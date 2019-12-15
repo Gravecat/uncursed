@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.21 -- 15th December 2019
+   RELEASE VERSION 1.22 -- 15th December 2019
 
 MIT License
 
