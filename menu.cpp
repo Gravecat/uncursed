@@ -1,5 +1,5 @@
 /* menu.cpp -- Menu class definition, for a fairly generic scrollable menu of items.
-   RELEASE VERSION 1.22 -- 15th December 2019
+   RELEASE VERSION 1.3 -- 16th December 2019
 
 MIT License
 

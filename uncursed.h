@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.22 -- 15th December 2019
+   RELEASE VERSION 1.3 -- 16th December 2019
 
 MIT License
 
@@ -106,6 +106,8 @@ bool			is_select(int key);	// Checks if a key is a select key (space bar or ente
 bool			is_up(int key);		// Checks if a key is the up arrow key.
 void			move_cursor(int x, int y, std::shared_ptr<unc::Window> window = nullptr);	// Moves the cursor to the given coordinates; -1 for either coordinate retains its current position on that axis.
 				// Prints a string on the screen, with optional word-wrap.
+Colour			parse_colour(std::string input);	// Parses a string into a Colour, or Colour::NONE if it could not be parsed.
+unsigned int	parse_flags(std::string input);		// Parses a string into flags (such as UNC_BOLD | UNC_REVERSE), or 0 if nothing could be parsed from the string.
 void			print(std::string input, unc::Colour colour = unc::Colour::NONE, unsigned int flags = 0, int x = -1, int y = -1, std::shared_ptr<unc::Window> window = nullptr);
 void			print(int input = '\n', unc::Colour colour = unc::Colour::NONE, unsigned int flags = 0, int x = -1, int y = -1, std::shared_ptr<unc::Window> window = nullptr);	// As above, but for a single character.
 void			print(unc::Glyph input, unc::Colour colour = unc::Colour::NONE, unsigned int flags = 0, int x = -1, int y = -1, std::shared_ptr<unc::Window> window = nullptr);	// Simple wrapper for high-ASCII glyphs.

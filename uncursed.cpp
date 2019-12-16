@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.22 -- 15th December 2019
+   RELEASE VERSION 1.3 -- 16th December 2019
 
 MIT License
 
@@ -35,8 +35,9 @@ SOFTWARE.
 #endif
 #ifdef USING_POTLUCK
 #include "potluck/potluck.h"
+#else
+#include <algorithm>
 #endif
-
 
 namespace unc
 {
@@ -313,6 +314,49 @@ void move_cursor(int x, int y, std::shared_ptr<unc::Window> window)
 	if (x == -1) x = old_x;
 	if (y == -1) y = old_y;
 	wmove(win, y, x);
+}
+
+// Parses a string into a Colour, or Colour::NONE if it could not be parsed.
+Colour parse_colour(std::string input)
+{
+	stack_trace();
+	if (!input.size()) return Colour::NONE;
+#ifdef USING_POTLUCK
+	input = potluck::str_toupper(input);
+#else
+	std::transform(input.begin(), input.end(), input.begin(), ::toupper);
+#endif
+
+	if (input == "BLACK") return Colour::BLACK;
+	else if (input == "RED") return Colour::RED;
+	else if (input == "GREEN") return Colour::GREEN;
+	else if (input == "YELLOW") return Colour::YELLOW;
+	else if (input == "BLUE") return Colour::BLUE;
+	else if (input == "MAGENTA") return Colour::MAGENTA;
+	else if (input == "CYAN") return Colour::CYAN;
+	else if (input == "WHITE") return Colour::WHITE;
+	else return Colour::NONE;
+}
+
+// Parses a string into flags (such as UNC_BOLD | UNC_REVERSE), or 0 if nothing could be parsed from the string.
+unsigned int parse_flags(std::string input)
+{
+	stack_trace();
+	if (!input.size()) return 0;
+#ifdef USING_POTLUCK
+	input = potluck::str_toupper(input);
+#else
+	std::transform(input.begin(), input.end(), input.begin(), ::toupper);
+#endif
+
+	unsigned int flags = 0;
+	if (input.find("BOLD") != std::string::npos) flags |= UNC_BOLD;
+	if (input.find("NL") != std::string::npos) flags |= UNC_NL;
+	if (input.find("RAW") != std::string::npos) flags |= UNC_RAW;
+	if (input.find("REVERSE") != std::string::npos) flags |= UNC_REVERSE;
+	if (input.find("DOUBLE") != std::string::npos) flags |= UNC_DOUBLE;
+	if (input.find("BLINK") != std::string::npos) flags |= UNC_BLINK;
+	return flags;
 }
 
 // Prints a string on the screen, with optional word-wrap.
