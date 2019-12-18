@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.3 -- 16th December 2019
+   RELEASE VERSION 1.31 -- 18th December 2019
 
 MIT License
 
@@ -382,6 +382,8 @@ void print(std::string input, unc::Colour colour, unsigned int flags, int x, int
 	if (raw)
 	{
 		if (!no_colour) wattron(win, COLOR_PAIR(static_cast<unsigned int>(colour)) | colour_flags);
+		const int available_size = unc::get_cols(window) - unc::get_cursor_x(window);
+		if (static_cast<signed>(input.size()) > available_size) input = input.substr(0, available_size);
 		waddstr(win, input.c_str());
 		if (newline) waddch(win, '\n');
 		if (!no_colour) wattroff(win, COLOR_PAIR(static_cast<unsigned int>(colour)) | colour_flags);
