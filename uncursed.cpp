@@ -1,5 +1,5 @@
 /* uncused.cpp -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.32 -- 18th December 2019
+   RELEASE VERSION 1.4 -- 18th December 2019
 
 MIT License
 
@@ -335,6 +335,14 @@ Colour parse_colour(std::string input)
 	else if (input == "MAGENTA") return Colour::MAGENTA;
 	else if (input == "CYAN") return Colour::CYAN;
 	else if (input == "WHITE") return Colour::WHITE;
+	else if (input == "BLACK_BOLD") return Colour::BLACK_BOLD;
+	else if (input == "RED_BOLD") return Colour::RED_BOLD;
+	else if (input == "GREEN_BOLD") return Colour::GREEN_BOLD;
+	else if (input == "YELLOW_BOLD") return Colour::YELLOW_BOLD;
+	else if (input == "BLUE_BOLD") return Colour::BLUE_BOLD;
+	else if (input == "MAGENTA_BOLD") return Colour::MAGENTA_BOLD;
+	else if (input == "CYAN_BOLD") return Colour::CYAN_BOLD;
+	else if (input == "WHITE_BOLD") return Colour::WHITE_BOLD;
 	else return Colour::NONE;
 }
 
@@ -364,6 +372,12 @@ void print(std::string input, unc::Colour colour, unsigned int flags, int x, int
 {
 	stack_trace();
 	if (!input.size()) return;
+
+	if (colour >= Colour::BLACK_BOLD && colour <= Colour::WHITE_BOLD)
+	{
+		flags |= UNC_BOLD;
+		colour = static_cast<Colour>(static_cast<int>(colour) - 8);
+	}
 
 	WINDOW *win = (window ? window->win() : stdscr);
 	const bool bold = ((flags & UNC_BOLD) == UNC_BOLD);
@@ -428,6 +442,13 @@ void print(std::string input, unc::Colour colour, unsigned int flags, int x, int
 void print(int input, unc::Colour colour, unsigned int flags, int x, int y, std::shared_ptr<unc::Window> window)
 {
 	stack_trace();
+
+	if (colour >= Colour::BLACK_BOLD && colour <= Colour::WHITE_BOLD)
+	{
+		flags |= UNC_BOLD;
+		colour = static_cast<Colour>(static_cast<int>(colour) - 8);
+	}
+
 	WINDOW *win = (window ? window->win() : stdscr);
 	const bool bold = ((flags & UNC_BOLD) == UNC_BOLD);
 	const bool reverse = ((flags & UNC_REVERSE) == UNC_REVERSE);

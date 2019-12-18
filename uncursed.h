@@ -1,5 +1,5 @@
 /* uncused.h -- Uncursed, a C++ front-end library to make NCurses/PDCurses less painful to use.
-   RELEASE VERSION 1.32 -- 18th December 2019
+   RELEASE VERSION 1.4 -- 18th December 2019
 
 MIT License
 
@@ -51,7 +51,7 @@ typedef struct panel PANEL;
 #define stack_trace() (void)0
 #endif
 
-enum class Colour : unsigned int { NONE, BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE };
+enum class Colour : unsigned int { NONE, BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, BLACK_BOLD, RED_BOLD, GREEN_BOLD, YELLOW_BOLD, BLUE_BOLD, MAGENTA_BOLD, CYAN_BOLD, WHITE_BOLD };
 
 enum class Glyph : unsigned int { ULCORNER = 256, LLCORNER, URCORNER, LRCORNER, RTEE, LTEE, BTEE, TTEE, HLINE, VLINE, PLUS, S1, S9, DIAMOND, CKBOARD, DEGREE, PLMINUS, BULLET, LARROW, RARROW, DARROW, UARROW, BOARD, LANTERN, BLOCK,
 	S3, S7, LEQUAL, GEQUAL, PI, NEQUAL, STERLING };
